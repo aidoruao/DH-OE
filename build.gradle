@@ -1,0 +1,52 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:6.0.+'
+        classpath 'org.spongepowered:mixingradle:0.7.+'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+
+group = 'com.oe.dhoe'
+version = '1.0.0'
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.minecraftforge.net/' }
+    maven { url = 'https://repo.spongepowered.org/maven/' }
+    flatDir { dirs 'libs' }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.10'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    compileOnly 'dh:DistantHorizons-2.2.0-a-1.20.1-forge-fabric'
+}
+
+mixin {
+    add sourceSets.main, 'dhoe.mixins.refmap.json'
+    config 'dhoe.mixins.json'
+}
+
+jar {
+    manifest {
+        attributes([
+            'MixinConfigs': 'dhoe.mixins.json',
+            'Implementation-Title': 'DH-OE',
+            'Implementation-Version': project.version
+        ])
+    }
+}

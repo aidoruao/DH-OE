@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.oe.dhoe.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "dhoe.mixins.refmap.json",
+    "mixins": [
+        "MixinIdleGate",
+        "MixinTpsThrottle",
+        "MixinProximityGate",
+        "MixinFpsThrottle"
+    ],
+    "client": [],
+    "server": []
+}
